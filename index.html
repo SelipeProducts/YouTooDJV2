@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>YouTooDJ</title>
+	<!-- CSS LINK -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<!-- BOOTSTRAP LINK: Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- BOOTSTRAP LINK: Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- BOOTSTRAP LINK: Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- JQUERY LINK -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<!-- MAIN DIV -->
+	<div class="container-fluid">
+		<!-- HIDDEN WINDOW: Window that will apear over-->
+		<div id="menu" class="menuSlide isHidden">
+			<button class="lineBtn" onClick="showMenu()">|||</button>
+		</div>
+		<!-- HEADER --> 
+		<div class="header">
+			<div class="displayInline">
+				<button class="lineBtn" onClick="showMenu()"><br>|||<br></button>
+			</div>
+			<div class="displayInline">
+				<img src="youTooDjLogo.png" class="logo">
+			</div>
+			<!-- DROPDOWN PLAYLIST LIST w/BUTTON: -->
+			<div class="displayInline relRight">
+				<select name="recomendedIDs" id="selectRecomendID" class="copyIDOptionWidth">
+					<option value="PL6LCpdsEXEzNX0hW9yKFp7HwHOQJEJuaN">EDM Playlist</option>
+					<option value="PL6LCpdsEXEzOAAOLKMHGJIkPhLhFoRLV1">/r/ListenToThis Playlist</option>
+					<option value="PL6LCpdsEXEzM3d-Kcwqr_IPh4TU20Tes9">Hip-Hop Playlist</option>
+					<option value="PL6LCpdsEXEzPEH1QfCZhQMCuKV8oNoe-U">ListenToThis (Hip-Hop) [2018]</option>
+					<option value="PL6LCpdsEXEzNMU7QDaS4zqhPe-gZsRs3t">ListenToThis (Hip-Hop) [2019]</option>
+					<option value="PL6LCpdsEXEzPOsBqbA0BMFZGOVRgbMycU">Lofi Playlist</option>
+					<option value="PL6LCpdsEXEzMg_L8zFM3yQLMBDhI5etb0">ListenToThisHouse [-2019]</option>
+					<option value="PLCD0445C57F2B7F41">YT 80'S Playlist</option>
+					<option value="PL6LCpdsEXEzNtgp8WfsUquEGAEV775MWb">Latino</option>
+					
+					<option value="PL6LCpdsEXEzMgbUsAO-bTXsxKzLgRlRZA"> Chance Playllist</option>
+					<option value="RDEMr5ZEfSlyVyNRbT5MdPmNig">Yellow Claw YT Playlist</option>
+				</select> <!-- END-DROPDOWN PLAYLIST -->
+				<button id="coptIdBtn">Copy ID</button>
+			</div>
+			<div class="displayInline absRight aboutBtn" onClick="goToAbout()">About</div>
+		</div> <!-- END-DIV: DROPDOWN PLAYLIST LIST w/BUTTON: -->
+		
+		<!-- BOOTSTRAP GRID SYSTEM-->
+		<div class="row" style="background-color: #000000">
+			<!-- BOOTSTRAP GRID SYSTEM: LEFT-->
+			<div class="col-md-5" style="background-color: #333333">
+				<div class="row">
+					<select name="changeType" id="changeType" class="buttonStyle">
+						<option value="PlayList">PlayList</option>
+						<option value="Video">Video</option>
+					</select>
+					<!-- VIDEO 1: Search Field & Button-->	
+					<input type="text" id ="video1SrcText" class="buttonStyle" style="width:65%"/>
+					<button id="ytPlayerBtn" class="buttonStyle" onclick="">Change</button>
+				</div>
+				<div class="row">
+					<!-- VIDEO 1: PLAYER-->
+					<div id="ytplayer" ></div>
+				</div>
+				<div class="row textWhite" >
+					<!-- VIDEO 1:UI CONTROLS -->
+					<!-- VIDEO 1: TIMER -->
+					Time: <div id="videoTimeTxt"class="displayInline" >0:00</div>
+					<input type="range" id="timerRange" class="buttonStyle" min="0" max="" value="0" width="200px" onchange=""/>
+
+				</div>
+				<div class="row"><!-- SPACER -->&nbsp;</div>
+				<div class="row">
+					<!-- VIDEO 1: SEEK BTN -->
+					<input type="text" id ="seekToText" class="inputWidth buttonStyle"  placeholder="03:30"/>
+					<button id="seekToBtn" class="buttonStyle" onClick="">
+						Seek
+					</button> 
+					<!---->
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<!-- VIDEO 1: SKIP BTN -->
+					<button id="timeBackBtn" class="buttonStyle" onClick="">
+						<<
+					</button> 							
+					<input type="number" id ="timeBackText" class ="inputWidth buttonStyle" />
+					<input type="number" id ="timeForwardText" class ="inputWidth buttonStyle" />
+					<button id="timeForwardBtn" class="buttonStyle" onClick="">
+						>>
+					</button>
+				</div>
+				<div class="row"><!-- SPACER -->&nbsp;</div>
+				<div class="row">
+					<!-- VIDEO 1: LOOP BTN -->
+					<table>
+						<tr>
+							<td>
+								<input type="text" id ="loopStartText" class="inputWidth buttonStyle" placeholder="00:00"/>
+								<input type="text" id ="loopEndText" class ="inputWidth buttonStyle" placeholder="00:10"/>
+							</td>
+							<td>
+								<div class=""><input type="range" id="loopOnOff" class ="inputWidth buttonStyle "  min="0" max="1" value="0" width="50px" onchange="" /></div>
+							</td>
+							<td>
+								<button id="loopBtn" class="buttonStyle" onClick="">
+									Loop
+								</button> 
+							</td>
+						</tr>
+					</table>
+							
+				</div>
+				<div class="row"><!-- SPACER -->&nbsp;</div>
+				<div class="row">
+					<!-- VIDEO 1: PLAYBACK RATE BTN -->
+					<table>
+						<tr>
+							<td class="textWhite">
+								Playback Rate 
+								<div id="playbackRateTxt" class="displayInline">1</div>:
+							</td>
+							<td>
+								 <input type="range" id="playback" class="inputWidth buttonStyle" min="0" max="2" value="1" step=".25" onchange="">
+							</td>
+						</tr>
+					</table>
+					
+				</div>
+			</div>
+			<!-- BOOTSTRAP GRID SYSTEM: MIDDLE -->
+			<div class="col-md-2" style="background-color: #000000">
+				<!-- Master Volume Control-->
+				<input type="range" id="masterVolumeMixer" class="buttonStyle" min="0" max="200" value="100" width="500px"  onChange="masterVolume()" />
+				
+
+				<div class="text-center"><button class="buttonStyle" onClick="transition_sound()">Transition</button></div>
+				<!-- PLAY BTN ROW-->
+				<div class="row">
+					<div class="text-center">
+						<!-- VIDEO 1: PLAY BTN -->
+						<button id="playBtn" class="buttonStyle" onclick="">Play</button>
+						<!-- VIDEO 2: PLAY BTN -->
+						<button id="playBtn2" class="buttonStyle" onclick="">Play</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="text-center">
+						<!-- VIDEO 1: MUTE BTN-->
+						<button id="muteBtn" class="buttonStyle" onclick="">Mute</button>
+						<!-- VIDEO 2: MUTE BTN -->
+					<button id="muteBtn2" class="buttonStyle" onclick="">Mute</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="text-center">	
+							<table>
+								<tr>
+									<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+									<td>
+										<div class="VertSlider">
+										<!-- VIDEO 1: VOLUME -->
+										<input type="range" id="volumeMixer" class="buttonStyle" min="0" max="100" value="100" width="200px" onchange="" />
+										</div>
+									</td>
+									<td width="100%"></td>
+									<td>
+										<div class="VertSlider">
+										<!-- VIDEO 2: VOLUME -->
+										<input type="range" orient="vertical" id="volumeMixer2" min="0" max="100" value="100" width="200px" onchange="" />
+										</div>
+									</td>
+								</tr>
+							</table>
+					</div>
+				</div>	
+
+			</div>
+			<!-- BOOTSTRAP GRID SYSTEM: RIGHT -->
+			<div class="col-md-5" style="background-color: #333333">
+				<div class="row">
+					<select name="changeType" id="changeType2" class="buttonStyle">
+						<option value="Video">Video</option>
+						<option value="PlayList">PlayList</option>
+					</select>
+					<!-- VIDEO 2: Search Field & Button-->	
+					<input type="text" id ="video1SrcText2" class="buttonStyle" style="width:65%"/>
+					<button id="ytPlayerBtn2" class="buttonStyle" onclick="">
+						Change
+					</button> 
+				</div>
+				<div class="row">
+					<!-- VIDEO 2: PLAYER-->
+					<div id="ytplayer2"></div>
+				</div>
+				<div class="row textWhite">
+					<!-- VIDEO 2:UI CONTROLS -->
+					<!-- VIDEO 2: TIMER -->
+					Time: <div id="videoTimeTxt2"class="displayInline" >0:00</div>
+					<input type="range" id="timerRange2" min="0" max="" value="0" width="200px" onchange="" />	
+				</div>
+				<div class="row"><!-- SPACER -->&nbsp;</div>
+				<div class="row">
+					<!-- VIDEO 2: SEEK BTN -->
+					<input type="text" id ="seekToText2" class ="inputWidth buttonStyle" placeholder="01:10"/>
+					<button id="seekToBtn2" class="buttonStyle" onClick="">
+						Seek
+					</button>
+					<!---->
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<!-- VIDEO 2: SKIP BTN -->
+					<button id="timeBackBtn2" class="buttonStyle" onClick="">
+						<<
+					</button>						
+					<input type="number" id ="timeBackText2" class ="inputWidth buttonStyle" /> 
+					<input type="number" id ="timeForwardText2" class ="inputWidth buttonStyle" />
+					<button id="timeForwardBtn2" class="buttonStyle" onClick="">
+						>>
+					</button> 
+				</div>
+				<div class="row"><!-- SPACER -->&nbsp;</div>
+				<div class="row">
+					<!-- VIDEO 2: LOOP BTN -->
+					<table>
+						<tr>
+							<td>
+								<input type="text" id ="loopStartText2" class ="inputWidth buttonStyle" placeholder="00:00"/>
+								<input type="text" id ="loopEndText2" class ="inputWidth buttonStyle"  placeholder="00:10"/>
+							</td>
+							<td>
+								<input type="range" id="loopOnOff2" class ="inputWidth buttonStyle" min="0" max="1" value="0" width="50px" onchange="" />
+							</td>
+							<td>
+								<button id="loopBtn2" class="buttonStyle" onClick="">
+									Loop
+								</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="row"><!-- SPACER -->&nbsp;</div>
+				<div class="row">
+					<!-- VIDEO 2: PLAYBACK RATE BTN -->
+					<table>
+						<tr>
+							<td class="textWhite">
+								Playback Rate <div id="playbackRateTxt2" class="displayInline ">1</div>: 
+							</td>
+							<td>
+							<!--	<div id="playbackRateTxt" class="displayInline">1</div>
+								
+								 <input type="range" id="playback" class="inputWidth buttonStyle" min="0" max="2" value="1" step=".25" onchange="">
+							-->
+								<input type="range" id="playback2" class="inputWidth buttonStyle"min="0" max="2" value="1" step=".25" onchange="">
+							</td>
+						</tr>
+					</table>
+					
+				</div>
+			</div>
+		</div>
+		<!-- END-BOOTSTRAP GRID SYSTEM-->
+
+	</div> <!-- END-MAIN DIV-->
+	<!-- JAVASCRIPT CODE START-->
+	<script type="text/javascript">
+		//Code for youtube iframe API
+		var tag = document.createElement('script');
+
+		tag.src = 'https://www.youtube.com/iframe_api';
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+		firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+		//Variables that deal with: UI Control Elements - Buttons  - Inputs
+		//Youtube Player Variable
+		var player;
+		var player2;
+		var playlistID= "PL6LCpdsEXEzOAAOLKMHGJIkPhLhFoRLV1";
+
+		//YTPlayer 1 Button Variables
+		var btn_change;
+		var btn_play;
+		var btn_mute;
+		var input_range_volume;
+		var btn_SeekTo;
+		var btn_loop;
+		var input_range_loopControl; 
+		var input_range_playback;
+		var btn_timeBack;
+		var btn_timeForward;
+
+		//YTPlayer 1 Button Variables
+		var btn_change2;
+		var btn_play2;
+		var btn_mute2;
+		var input_range_volume2;
+		var btn_SeekTo2;
+		var btn_loop2;
+		var input_range_loopControl2; 
+		var input_range_playback2;
+		var btn_timeBack2;
+		var btn_timeForward2;
+
+		//Variables that deal with looping
+		var looperTracker = false;
+		var intervalVar= null; //Loop nterval var
+
+		var btn_copyID;
+		var input_range_timer;
+		var input_range_timer2;
+		var input_range_currentTime;
+		var input_range_currentTime2;
+		
+		//UI Element action intitialization
+		function showMenu(){
+			var menuDiv = document.getElementById("menu");
+			if(menuDiv.classList.contains("isHidden")){//alert("Yes");
+				menuDiv.classList.remove('isHidden');
+			}
+			else{//alert("No");
+				menuDiv.classList.add('isHidden');
+			}
+		}
+
+		//Sound Transistion
+		function transition_sound(){
+			//Getting player 1 and player 2 state
+			var playerStatus = player.getPlayerState();
+			var player2Status = player2.getPlayerState();
+			//Getting player1 and player2's total duration time
+			var playerDuration = player.getDuration();
+			var player2Duration = player2.getDuration();
+
+			var currPlayerTime;
+			var currPlayer2Time;
+
+			var interval;
+
+			//If player1 is playing and player 2 is puased
+			if(player2Status ==-1 || player2Status ==0|| player2Status ==2|| player2Status ==3|| player2Status ==5 && playerStatus == 1){
+				//while(playerStatus == 1){   //interval not working
+					interval = setInterval(function(){
+						currPlayerTime = player1.getCurrentTime();
+						var earlyTime = currPlayerTime+30;
+						if(earlyTime=>playerDuration){
+							alert("Play second video: "+ currPlayerTime);
+							player2.playVideo();
+						}
+					}, 1000);
+					// currPlayerTime = player1.getCurrentTime();
+					// alert("Play second video");
+				//}
+				alert("Player1 is playing\nbspPlayer 1: "+playerStatus+"\nPlayer 2: "+player2Status);
+			}
+			//If player1 is puased and player 2 is playing
+			else if(playerStatus ==-1 || playerStatus ==0|| playerStatus ==2|| playerStatus ==3|| playerStatus ==5 && player2Status == 1){
+				alert("Player2 is playing\nPlayer 1: "+playerStatus+"\nPlayer 2: "+player2Status);
+			}
+			else if(playerStatus == 1 && player2Status == 1){
+				alert("Both are playing")
+			}
+			//***Youtube State Changes: -1 (unstarted)  | 0 (ended) | 1 (playing) | 2 (paused) |  3 (buffering) | 5 (video cued)
+
+			// if(ytplayerObject.getPlayerState()==-1 || ytplayerObject.getPlayerState()==0 || ytplayerObject.getPlayerState()==2 || ytplayerObject.getPlayerState()==3 || ytplayerObject.getPlayerState()==5){
+			// 	ytplayerObject.playVideo();
+			// }
+			// else{
+			// 	ytplayerObject.pauseVideo();
+			//}	
+
+		}
+
+		//Actually dont know what does
+		function intit_input_range_currTime(inputName, elementId, ytPlayer){
+			var playingIntervalVar;
+			inputName = document.getElementById(elementId);
+			if(ytPlayer.getPlayerState()==2){
+				alert("init");
+				playingIntervalVar = setInterval(function(){
+					var currTimec= ytplayer.getCurrentTime();
+					inputName.value = currTimec;
+				}, 500);	
+			}
+			else{
+				clearInterval(playingIntervalVar);
+			}
+		}
+
+		//Function for range that shows current time length
+		//Parameters: inputName=JS_Variable, elementId=HTML_ID_Tag, ytPlayer=player
+		function initialize_input_range_timer(inputName, elementId, ytPlayer){
+			//Variable inputName is assigned to an HTML ELEMENT based off elementId
+			inputName = document.getElementById(elementId);
+			//Variable inputName is assigned an event listener
+			inputName.addEventListener('change',function(){
+				//Variable maxSex set to current YTPlayer's max seconds.
+				var maxSec = ytPlayer.getDuration();
+				//HTML Element's HTML attribute max is set to the max seconds of the video
+				document.getElementById(elementId).setAttribute("max", maxSec);
+				//Variable newInputTime is set to HTML elements current value
+				var newInputTime = document.getElementById(elementId).value;
+				//ytPlayer seeks to newInputTime 
+				ytPlayer.seekTo(newInputTime, true);
+			});
+		}
+
+		//Copy ID BTN that alerts posssible playlists to use
+		function initialize_btn_copyId(){
+			btn_copyID = document.getElementById("coptIdBtn");
+			btn_copyID.addEventListener('click',function(){
+
+				var copyID = document.getElementById("selectRecomendID");
+				var copyIDValue = copyID.value;
+				alert("Copy & Paste in Change Video: "+ copyIDValue);
+				copyID.select();
+				try {
+					var successful = document.execCommand('copy');
+					var msg = successful ? 'successful' : 'unsuccessful';
+					console.log('Copying text command was ' + msg);
+				} catch (err) {
+					console.log('Oops, unable to copy123');
+				}
+			});
+
+		}
+		//When video state changes and is playing time txt changes to video seconds
+		function changeTimeTxt(elementId, ytPlayer){
+			var playingIntervalVar;
+			if(ytPlayer.getPlayerState()==1 ){ //////////////////////////why player and not changeTimeTxt
+				playingIntervalVar = setInterval(function(){
+					var currentTime = ytPlayer.getCurrentTime();
+					var currTimeInt = parseInt(currentTime);
+					var minTime = parseInt(currTimeInt/60);
+					var secTime = parseInt(currTimeInt%60);
+					var correctSec;
+					if(secTime<10){
+						correctSec = "0"+secTime;
+					}
+					else{
+						correctSec=""+secTime;
+					}
+					var timeStr = minTime+":"+correctSec;
+					document.getElementById(elementId).innerHTML=  timeStr;
+				}, 500);
+			}
+			else{
+				clearInterval(playingIntervalVar);
+			}
+
+		}
+
+		function changeTimeTxt2(elementId, ytPlayer){
+			var playingIntervalVar;
+			if(player2.getPlayerState()==1 ){ //////////////////////////why player and not changeTimeTxt
+				playingIntervalVar = setInterval(function(){
+					var currentTime = ytPlayer.getCurrentTime();
+					var currTimeInt = parseInt(currentTime);
+					var minTime = parseInt(currTimeInt/60);
+					var secTime = parseInt(currTimeInt%60);
+					var correctSec;
+					if(secTime<10){
+						correctSec = "0"+secTime;
+					}
+					else{
+						correctSec=""+secTime;
+					}
+					var timeStr = minTime+":"+correctSec;
+					document.getElementById(elementId).innerHTML=  timeStr;
+				}, 500);
+			}
+			else{
+				clearInterval(playingIntervalVar);
+			}
+
+		}
+
+		//Sets up to Change the video or change playlist
+		function initialize_btn_change(btnName, elementId, ytPlayer, videoSrcTextId){    
+			//var selected_YT_player = new new YT.Player(ytPlayer);		
+			btnName = document.getElementById(elementId);
+			btnName.addEventListener('click',function(){
+	        	var changeType = document.getElementById("changeType").value;
+	        	if(changeType=="Video"){
+	        		changeVideo(ytPlayer, videoSrcTextId);
+	        	}
+	        	else{
+	        		changePlaylist(ytPlayer, videoSrcTextId);
+	        	}
+	        	
+	        });
+
+		}
+		//Sets chosen btn and sets click listener to chosen ytPlayer
+		function initialize_btn_play(btnName, elementId, ytPlayer){    	
+			btnName = document.getElementById(elementId);
+			btnName.addEventListener('click',function(){
+	        	playPause(ytPlayer);
+	        });
+		}
+
+		//Sets chosen btn and sets click listener to chosen ytPlayer
+		function initialize_btn_mute(btnName, elementId, ytPlayer, volumeMixerId, muteUnmuteId){    
+			//var selected_YT_player = new new YT.Player(ytPlayer);		
+			btnName = document.getElementById(elementId);
+			btnName.addEventListener('click',function(){
+	        	muteUnmute(ytPlayer, volumeMixerId, muteUnmuteId);
+	        });
+		}
+
+		function initialize_inputRange_primaryVolume(inputName, elementId, ytPlayer, volumeMixerId){    
+			//var selected_YT_player = new new YT.Player(ytPlayer);		
+			inputName = document.getElementById(elementId);
+			inputName.addEventListener('click',function(){
+	        	volumeMixer(ytPlayer, volumeMixerId);
+	        });
+
+		}
+
+		function initialize_btn_seekTo(btnName, elementId, ytPlayer, seeoToTextId){    
+			btnName = document.getElementById(elementId);
+			btnName.addEventListener('click',function(){
+				seekTo(ytPlayer, seeoToTextId);
+			});
+		}
+
+		function initialize_btn_loop(btnName, elementId, ytPlayer, loopStartTextId, loopEndTextId){    
+			btnName = document.getElementById(elementId);
+			btnName.addEventListener('click',function(){
+				if(looperTracker==true){
+					loop(ytPlayer, loopStartTextId, loopEndTextId);
+				}else{
+					alert("Turn Off");
+				}
+			});
+		}
+
+		function initialize_inputRange_loopControl(inputName, elementId, loopOnOffId){    
+			inputName = document.getElementById(elementId);
+			inputName.addEventListener('change',function(){
+				loopTrack(loopOnOffId);	
+			});
+		}
+		
+		function initialize_inputRange_playback(inputName, elementId, ytPlayer, playbackId){    
+			//var selected_YT_player = new new YT.Player(ytPlayer);		
+			inputName = document.getElementById(elementId);
+			inputName.addEventListener('change',function(){
+				//Playback Values: 0.25, 0.5, 1, 1.5, and 2
+				playBack(ytPlayer, elementId, playbackId);			
+			});
+		}
+
+		function initialize_btn_timeBack(btnName, elementId, ytPlayer, timeBackTextId){    
+			btnName = document.getElementById(elementId);
+			btnName.addEventListener('click',function(){
+				timeBack(ytPlayer, timeBackTextId);
+			});
+		}
+
+		function initialize_btn_timeForward(btnName, elementId, ytPlayer, timeForwardTextId){    
+			btnName = document.getElementById(elementId);
+			btnName.addEventListener('click',function(){
+				timeForward(ytPlayer, timeForwardTextId);
+			});
+		}
+
+		//When JS Youtube API IFrame code is ready this function is called
+		function onYouTubeIframeAPIReady() {
+			createDefualtYT_player(); //Creates YT Players 1 & 2
+			
+			//   Function param (YT.Player, Str, Str, Str, Str)
+			//create_Param_YT_player(player2, "ytplayer2", "200px", "300px", "jEdpH1GGc2Y");  // Failed atempt at creating player through function paramters
+			//UI Initialization
+			initialize_btn_copyId();
+			//Video 1 Initialization
+			initialize_btn_change(btn_change, "ytPlayerBtn", player, "video1SrcText");
+			initialize_btn_play(btn_play,"playBtn", player);
+			initialize_btn_mute(btn_mute, "muteBtn", player, "volumeMixer" , "muteBtn");
+			initialize_inputRange_primaryVolume(input_range_volume, "volumeMixer", player, "volumeMixer");
+			initialize_btn_seekTo(btn_SeekTo, "seekToBtn", player, "seekToText");
+			initialize_btn_loop(btn_loop,"loopBtn", player, "loopStartText", "loopEndText");
+			initialize_inputRange_loopControl(input_range_loopControl, "loopOnOff", "loopOnOff");
+			initialize_inputRange_playback(input_range_playback, "playback", player, "playbackRateTxt");
+			initialize_btn_timeBack(btn_timeBack ,"timeBackBtn", player ,"timeBackText");
+			initialize_btn_timeForward(btn_timeForward, "timeForwardBtn", player, "timeForwardText");
+
+			initialize_input_range_timer(input_range_timer,"timerRange", player);
+
+
+			//Video 2 Initialization
+			initialize_btn_change(btn_change2, "ytPlayerBtn2", player2, "video1SrcText2");
+			initialize_btn_play(btn_play2,"playBtn2", player2);
+			initialize_btn_mute(btn_mute2, "muteBtn2", player2, "volumeMixer2" , "muteBtn2");
+			initialize_inputRange_primaryVolume(input_range_volume2, "volumeMixer2", player2, "volumeMixer2");
+			initialize_btn_seekTo(btn_SeekTo2, "seekToBtn2", player2, "seekToText2");
+			initialize_btn_loop(btn_loop2,"loopBtn2", player2, "loopStartText2", "loopEndText2");
+			initialize_inputRange_loopControl(input_range_loopControl2, "loopOnOff2", "loopOnOff2");
+			initialize_inputRange_playback(input_range_playback2, "playback2", player2, "playbackRateTxt2");
+			initialize_btn_timeBack(btn_timeBack2 ,"timeBackBtn2", player2 ,"timeBackText2");
+			initialize_btn_timeForward(btn_timeForward2, "timeForwardBtn2", player2, "timeForwardText2");
+			initialize_input_range_timer(input_range_timer2,"timerRange2", player2);
+
+		}
+
+		//Function that creates YT Players        
+		function createDefualtYT_player(){
+			player = new YT.Player('ytplayer', { //Player initialization 
+				height: '300px',
+				width:'100%',
+				videoId:'BwPVqGZ1Hok',
+				events: {
+					'onReady': onPlayerReady,
+					'onStateChange': onPlayerStateChange
+				}
+			});
+			//https://www.youtube.com/watch?v=hLfh8nMaTTM&index=19&list=PL6LCpdsEXEzNX0hW9yKFp7HwHOQJEJuaN
+			player2 = new YT.Player('ytplayer2', {    //Coudnt create YT player through functions. Had to add this
+				height: '300px',
+				width:'100%',
+				videoId:'hLfh8nMaTTM',
+				events: {
+					'onReady': onPlayerReady,
+					'onStateChange': onPlayerStateChange2
+				}
+			});
+
+		}
+
+		// Ment to ceate a YT player by function call                                (YT.Player, Str, Str, Str, Str)
+		function create_Param_YT_player(objectVar, elementId, playerHeight, playerWidth, playerVideoId){  //Method would create player but UI btns couldnt contact YT object
+			objectVar = new YT.Player(elementId, {
+				height: playerHeight,
+				width: playerWidth,
+				videoId: playerVideoId,
+				events: {
+					'onReady': onPlayerReady,
+					'onStateChange': onPlayerStateChange
+
+				}
+			});
+
+		}
+		//YoutubeAPI Event Function
+		//Method called when player is running
+		function onPlayerReady(event) {
+			//intit_input_range_currTime(input_range_currentTime,"timerRange",player );
+		}
+		//Alternatve method of loading videos/playlist
+		function onPlaylistReady(event) {
+			 // event.target.loadPlaylist({
+			 // 	list: "PL6LCpdsEXEzOAAOLKMHGJIkPhLhFoRLV1", index: 1, startSeconds: 10,suggestedQuality: "small"
+			 // });
+		}
+		//If YT playerStateChanges func
+		function onPlayerStateChange(event) {
+			changePlayBtnText(event.target, "playBtn");  //Changes play btn text
+			changeTimeTxt("videoTimeTxt", player);
+			
+		}
+		function onPlayerStateChange2(event) {  //Note: had to add this to apply different btnID's to the funct. param.
+			changePlayBtnText(event.target, "playBtn2");
+			changeTimeTxt("videoTimeTxt2", player2);
+		}
+
+		//UI JS Code
+
+		//Plays or pauses video1 when btn is pressed
+		function playPause(ytplayerObject){ 
+			//Youtube State Changes: -1 (unstarted)  | 0 (ended) | 1 (playing) | 2 (paused) |  3 (buffering) | 5 (video cued)
+			if(ytplayerObject.getPlayerState()==-1 || ytplayerObject.getPlayerState()==0 || ytplayerObject.getPlayerState()==2 || ytplayerObject.getPlayerState()==3 || ytplayerObject.getPlayerState()==5){
+				ytplayerObject.playVideo();
+			}
+			else{
+				ytplayerObject.pauseVideo();
+			}	
+		}
+
+		// Changes text of the first play/pause btn
+		function changePlayBtnText(eventTarget, playBtnId){ 
+
+			eventTarget.getPlayerState()
+
+			if(eventTarget.getPlayerState()==-1 || eventTarget.getPlayerState()==0 || eventTarget.getPlayerState()==2 || eventTarget.getPlayerState()==3 || eventTarget.getPlayerState()==5){
+				document.getElementById(playBtnId).innerHTML = "Play";
+			}
+			else{
+				document.getElementById(playBtnId).innerHTML = "Pause";
+
+			}
+		}
+
+		// Mutes/Unmutes youtube player when mute btn is pressed
+		function muteUnmute(ytplayerObject, volumeMixerId, muteBtnId){  
+			var currentPlayerVolume = ytplayerObject.getVolume();
+			if(ytplayerObject.isMuted()==true){
+				ytplayerObject.unMute();
+				currentPlayerVolume = ytplayerObject.getVolume();
+				document.getElementById(volumeMixerId).value = currentPlayerVolume;
+				changeMuteBtnText(ytplayerObject, muteBtnId);
+				
+			}
+			else{
+				ytplayerObject.mute();
+				currentPlayerVolume = ytplayerObject.getVolume();
+				document.getElementById(volumeMixerId).value =0;
+				changeMuteBtnText(ytplayerObject, muteBtnId);				
+			}
+		}
+
+
+		//Changes mute btn 1 text when mute button 1 is pressed
+		function changeMuteBtnText(ytplayerObject, muteBtnId){
+			if(ytplayerObject.isMuted()==false){
+				document.getElementById(muteBtnId).innerHTML = "Unmute";
+			}
+			else if(ytplayerObject.isMuted()==true){
+				document.getElementById(muteBtnId).innerHTML = "Mute";
+			} 
+		}
+
+		//Runs when input slider for volume of video is pressed
+		function volumeMixer(ytplayerObject, volumeMixerId){
+			var volume = ytplayerObject.getVolume();
+			volume = document.getElementById(volumeMixerId).value;
+			ytplayerObject.setVolume(volume);
+		}
+
+
+		 //When change src button is pressed video is changed based off input form data
+		 function changeVideo(ytPlayerObject, videoSrcTextId){
+			//checkVideoLink(document.getElementById("video1SrcText").value);
+			var videoID = checkVideoLink(document.getElementById(videoSrcTextId).value);
+			ytPlayerObject.loadVideoById(videoID);
+		}
+
+		///Seeking 
+		function seekTo(ytplayerObject, seeoToTextId){
+			var seekToValue = document.getElementById(seeoToTextId).value;
+			var colonLoc =findAndGetChar(":",seekToValue);
+			var minuteValue = seekToValue.slice(0, colonLoc);
+			var secValue = seekToValue.slice(colonLoc+1, seekToValue.length);
+			var minuteIntVal = parseInt(minuteValue);
+			var secIntVal = parseInt(secValue);
+			//alert("SeekToValue: "+ seekToValue +"\nColonLoc: "+ colonLoc + "\nMinuteVal:"+ minuteValue+
+			//	"\nSecondVal" +secValue	);
+			var totalSec = (minuteIntVal*60)+secIntVal;
+			//alert(secValue);
+			//alert(minuteIntVal+"\n"+secIntVal);
+			//alert(totalSec);
+			ytplayerObject.seekTo(totalSec,true)
+		}
+		
+
+		function loop(ytplayerObject, loopStartTextId, loopEndTextId){    
+			var loopStartValue = document.getElementById(loopStartTextId).value;
+			var loopEndValue = document.getElementById(loopEndTextId).value;
+
+			var startColonLoc =findAndGetChar(":",loopStartValue);
+			var startMinuteValue = loopStartValue.slice(0, startColonLoc);
+			var startSecValue = loopStartValue.slice(startColonLoc+1, loopStartValue.length);
+
+			var endColonLoc =findAndGetChar(":",loopEndValue);
+			var endMinuteValue = loopEndValue.slice(0, endColonLoc);
+			var endSecValue = loopEndValue.slice(endColonLoc+1, loopEndValue.length);
+
+			var startMinuteIntVal = parseInt(startMinuteValue);
+			var startSecIntVal = parseInt(startSecValue);
+
+			var endMinuteIntVal = parseInt(endMinuteValue);
+			var endSecIntVal = parseInt(endSecValue);
+
+			var startTotalSec = (startMinuteIntVal*60)+startSecIntVal;
+			var endTotalSec = (endMinuteIntVal*60)+endSecIntVal;
+
+			var totalLoopSec = endTotalSec- startTotalSec;
+			var toolLoopMilSec = totalLoopSec*1000;
+
+			
+			if(looperTracker==true){
+				ytplayerObject.seekTo(startTotalSec, true);
+				setTimeDelay(toolLoopMilSec, startTotalSec, ytplayerObject);
+			}else if(looperTracker==false){
+				alert("Loop Ended");
+				clearInterval(intervalVar);
+			}
+		}
+		function setTimeDelay(sec, startSec, ytplayerObject){
+			intervalVar = setInterval(function(){
+				ytplayerObject.seekTo(startSec, true);			 
+			}, sec);
+
+			
+		}
+		function loopTrack(loopOnOffId){
+			var loopOnOFF = document.getElementById(loopOnOffId).value;
+			if(loopOnOFF == 0){
+				looperTracker =false;
+			}
+			else{
+				looperTracker=true;
+			}
+		}
+		function playBack(ytplayerObject, playbackId, textId){//playback
+			playback = Number(document.getElementById(playbackId).value);
+			document.getElementById(textId).innerHTML = playback;
+			if(ytplayerObject.getPlaybackRate() != playback){
+				ytplayerObject.setPlaybackRate(playback);
+			}
+			
+		}
+
+		function timeBack(ytplayerObject, timeBackTextId){ 
+			var timeBackAmnt = document.getElementById(timeBackTextId).value;
+			var currTime = ytplayerObject.getCurrentTime();
+			var newTime =currTime-timeBackAmnt; 
+			ytplayerObject.seekTo(newTime, true);
+		}
+		function timeForward(ytplayerObject, timeForwardTextId){
+			var timeForwardAmnt = document.getElementById(timeForwardTextId).value;
+			//alert(timeForwardAmnt);
+			var theCurrTime = player.getCurrentTime();
+			var theNewTime =theCurrTime+(timeForwardAmnt*1); 
+			//alert(timeForwardAmnt+" | "+theCurrTime+" | "+theNewTime);
+			ytplayerObject.seekTo(theNewTime, true);
+		}
+
+
+		function masterVolume(){
+			var currMasterVolume = document.getElementById("masterVolumeMixer").value;
+			
+			if(currMasterVolume==100){
+				player.setVolume(100);
+				player2.setVolume(100);
+			}else if(currMasterVolume<100){
+				player.setVolume(100);
+				player2.setVolume(currMasterVolume);
+			}else if(currMasterVolume>100){
+				player2.setVolume(100);
+				var volumeDifference = currMasterVolume-100;
+				player.setVolume(100-volumeDifference);
+			}
+		}
+
+
+		//Functions that read strings
+
+		//Checks whether youtube link is a default YT link, an Embedded link, or an Video ID and slices links so they are just their videoID
+		function checkVideoLink(stringURL){ 
+			var youtubeLink = "watch?v=";
+			var youtubeEmbed = "embed";
+			var newStringId; 
+			var cutOffIndex;
+			stringURL = checkForAnd(stringURL);
+			if(parseThroughEachCharacterSeq(youtubeLink, stringURL) ==true){ //Checks to see if link is a default youtube link
+				cutOffIndex = findAndGetChar("=", stringURL);
+				cutOffIndex +=1;
+				newStringId = stringURL.slice(cutOffIndex, stringURL.length); //Slice link so only videoID is left
+				//player.loadVideoById(newStringId);
+				return newStringId;
+			}else if(parseThroughEachCharacterSeq(youtubeEmbed, stringURL) ==true){ //Checks to see if link is an embedded youtube link
+				cutOffIndex = findAndGetChar("embed", stringURL);
+				cutOffIndex +=1;
+				newStringId = stringURL.slice(cutOffIndex, stringURL.length);
+				//player.loadVideoById(newStringId);
+				return newStringId;
+			}else{
+				//player.loadVideoById(stringURL);
+				return stringURL;
+			}
+		}
+
+		//Looks for And in STR gets location and cuts string from that location.
+		function checkForAnd(str){
+			var charLoc=findAndGetChar("&",str);
+			
+			if(charLoc>0){
+				var maxCharLoc = charLoc;
+				var newStr = str.substr(0, maxCharLoc);
+				return newStr;
+			}
+			return str;
+		}
+		//Checks whole (and parts of) String and compares characters with key through 2 for loops. Once key is found  location of char found is returned
+		function findAndGetChar(key, strToCheck){ 
+			var subStr;
+			for(i=0; i<strToCheck.length; i++){
+				if(key == strToCheck.charAt(i)){
+					return i;
+				}else{
+					for(j=0; j<strToCheck.length; j++){
+						subStr = strToCheck.substring(i,j);
+						if(subStr==key){
+							return j;		
+						}
+					}
+				}
+			}
+			return 0; //If key is not found 0 is returned
+		}
+		//Returns true if key is found in string
+		function parseThroughEachCharacterSeq(key, str){
+			for(i=0; i<str.length; i++){
+				for(j=0; j<str.length; j++){
+					var subStr = str.substring(i,j);
+					if(subStr==key){
+						return true;
+					}
+					
+				}
+			}
+		}
+
+		//Changes Playlist when playlistchangeBtn is pressed
+		function changePlaylist(ytplayerObject, playlistSrcTextId){//need to make it so playlist id is only part of string left
+			var playlistValue = document.getElementById(playlistSrcTextId).value;
+			//alert(playlistValue);
+			var listKey = "list=";
+			var indexKey = "index=";
+			var listLocate = findAndGetChar(listKey, playlistValue);
+			var playListIdValue = playlistValue.slice(listLocate, playlistValue.length);
+			var indexLocate=0;
+			//alert(playListIdValue);
+			if(findAndGetChar(indexKey, playListIdValue)>0){
+				indexLocate = findAndGetChar(indexKey, playListIdValue);
+				var playListIndexValue = playListIdValue.slice(indexLocate, playListIdValue.length);
+				//alert("playListIndexValue: "+ playListIndexValue);
+				playListIdValue = playListIdValue.slice(0, indexLocate-7);
+				//alert("playListIdValue: "+ playListIdValue);
+			}
+			ytplayerObject.loadPlaylist({
+				list: playListIdValue,
+			 	index: 0, //tried setting to indexLocate but was causing bug
+			 	startSeconds: 0,
+			 	suggestedQuality: "small"
+			 });
+		}
+		function goToAbout(){
+			window.location = "about.html"
+		}
+
+		function selectAndCopy(copyEleStr ){
+			var hoverToCopy = document.getElementById(copyEleStr).value;
+			alert(hoverToCopy);
+		}
+	</script>
+	<!-- END-JAVASCRIPT CODE END-->
+</body>

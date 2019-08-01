@@ -1,0 +1,191 @@
+html{
+	font-family: Arial;
+	/*background-color: #b7bac3;
+	    /* For browsers that do not support gradients */
+
+}
+body{
+	margin: 0; 
+
+}
+table{
+	 /*border: 3px solid black; */
+	  table-layout: fixed;
+}
+.textAlignCenter{
+	text-align:center;
+	background-color: #e1e2e6;
+}
+#fullScreen{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	  background: linear-gradient(to top, grey , #b7bac3);
+	
+	
+}
+.logoPadd{
+	padding-left: 35px;
+}
+.yTMainTable{
+	margin-top:10px; 
+}
+.yTPlayerTable{
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+.marginAuto{
+	margin: auto; 
+}
+.center{
+	width: auto; /*can be in percentage also.*/
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+}
+.minBorder{
+	border: 1px dashed blue;
+}
+
+.YTBorder{
+	border: 1px dashed blue;
+    min-width: 00px;
+
+}
+.maxWidthP{
+	width:100%;
+}
+.inputWidth{
+	width: 50px;
+}
+.copyIDOptionWidth{
+	width: 300px;
+}
+.displayInline{
+	display:inline;
+
+}
+.tableIndivColor{
+	background-color: #e1e2e6;
+	border: 2px solid black;
+}
+.logo{
+	width:80px;
+	height: auto;
+	margin-top: 10px;
+}
+.absRight2{
+	position: absolute;
+   
+    right:25%;
+}
+.absRight{
+	position: absolute;
+   
+    right:0;
+}
+.relRight{
+	position: relative;
+	left: 20%;
+}
+.header{
+	background-color: white;
+	padding-bottom: 10px;
+
+}
+.width100{
+	width: 100%;
+}
+.widthAuto{
+	width: 97%;
+	height: 300px;
+	min-width: 10px;
+	 border: 3px solid black;
+}
+	
+}
+.width40{
+	width: 20%;
+}
+.width60{
+	width: 40%;
+}
+
+.footer{
+	background-color:  #737373; /*#8d8d8d*/
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.buttonStyle{
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+}
+.buttonStyle:hover{
+	background-color: #333333;
+	color: white;
+	border: 1px solid lightblue;
+}
+.aboutTxt{
+	margin-left: 100px;
+	margin-right: 100px;
+
+}
+.aboutHeader{
+	text-align: center;
+}
+.aboutBtn{
+	margin-top: 10px;
+	padding: 5px;
+}
+.aboutBtn:hover{
+	background-color: grey;
+	padding-top: 5px;
+}
+.lineBtn{
+	position: relative;
+	bottom: 10px;
+	background-color: white;
+	border: none;
+}
+.lineBtn:hover{
+	background-color: grey;
+}
+.menuSlide{
+	width: 50%;
+	height: 100%;
+	background-color: grey;
+	position: fixed;
+	z-index: 10;
+	
+	 
+}
+.isHidden{
+	visibility: hidden;
+}
+
+.VertSlider{
+  width: 150px;
+  height: 150px;
+  margin: 0;
+  transform-origin: 75px 75px;
+  transform: rotate(-90deg);
+  
+}
+
+.HorizSlider{
+  width: 100px;
+  margin: 0;
+  background-color: blue;
+
+}
+.textWhite{
+	color: white;
+}
+
